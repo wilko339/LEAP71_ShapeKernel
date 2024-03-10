@@ -32,8 +32,9 @@
 // limitations under the License.   
 //
 
-
+using System.Collections.Generic;
 using System.Numerics;
+using MathFloat;
 
 
 namespace Leap71
@@ -65,7 +66,7 @@ namespace Leap71
                 if (m_eEnds == EEnds.CLOSED)
                 {
                     //check that first and last points are not the same!
-                    if ((m_aControlPoints[0] - m_aControlPoints[^1]).Length() < m_fError)
+                    if ((m_aControlPoints[0] - m_aControlPoints[m_aControlPoints.Count]).Length() < m_fError)
                     {
                         m_aControlPoints.RemoveAt(m_aControlPoints.Count - 1);
                     }
@@ -153,7 +154,7 @@ namespace Leap71
                     //last iteration loop
                     if (
                         (fLengthRatio >= m_aKnot[nControlPoint] && fLengthRatio < m_aKnot[nControlPoint + 1]) ||
-                        ((MathF.Abs(fLengthRatio - m_aKnot[nControlPoint + 1]) < m_fError) && (MathF.Abs(fLengthRatio - m_aKnot[^1]) < m_fError))
+                        ((MathF.Abs(fLengthRatio - m_aKnot[nControlPoint + 1]) < m_fError) && (MathF.Abs(fLengthRatio - m_aKnot[m_aKnot.Count]) < m_fError))
                         )
                     {
                         fValue = 1f;

@@ -1,6 +1,7 @@
 ﻿using System.Numerics;
 using PicoGK;
-
+using System;
+using MathFloat;
 
 namespace Leap71
 {
@@ -219,7 +220,7 @@ namespace Leap71
                 Vector3 vecLocalX       = vecGetLocalXAlongLength(fLengthRatio);
                 Vector3 vecLocalY       = vecGetLocalYAlongLength(fLengthRatio);
 
-                float fPhi              = (2f * MathF.PI) * fPhiRatio;
+                float fPhi              = (2f * (float)Math.PI) * fPhiRatio;
 
                 float fOutwardRadius    = fGetOuterRadius(fLengthRatio);
                 float fInwardRadius     = -fGetInnerRadius(fLengthRatio);
@@ -256,12 +257,12 @@ namespace Leap71
             //access
             public Vector3 vecGetOuterSurfacePoint(float fPhi, float fLengthRatio)
             {
-                return vecGetSurfacePoint(fLengthRatio, fPhi / (2f * MathF.PI), 1f);
+                return vecGetSurfacePoint(fLengthRatio, fPhi / (2f * (float)Math.PI), 1f);
             }
 
             public Vector3 vecGetInnerSurfacePoint(float fPhi, float fLengthRatio)
             {
-                return vecGetSurfacePoint(fLengthRatio, fPhi / (2f * MathF.PI), 0f);
+                return vecGetSurfacePoint(fLengthRatio, fPhi / (2f * (float)Math.PI), 0f);
             }
         }
     }

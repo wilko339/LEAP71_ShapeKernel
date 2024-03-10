@@ -32,7 +32,7 @@
 // limitations under the License.   
 //
 
-
+using System;
 using PicoGK;
 
 
@@ -48,7 +48,7 @@ namespace Leap71
             public enum                 EInput { FUNC, IMAGE };
             public enum                 ELine { FIRST, SECOND };
 
-            protected Image             m_oImage;
+            //protected Image             m_oImage;
             protected RatioFunc         m_oFunc;
             protected MappingFunc       m_oMappingFunc;
             protected EInput            m_eInput;
@@ -92,12 +92,12 @@ namespace Leap71
             /// Surface modulation derived from an image.
             /// The mapping function indicates how an image grayscale value shall be translated into physical modulation.
             /// </summary>
-            public SurfaceModulation(Image oImage, MappingFunc oMappingFunc)
-            {
-                m_oImage                = oImage;
-                m_oMappingFunc          = oMappingFunc;
-                m_eInput                = EInput.IMAGE;
-            }
+            //public SurfaceModulation(Image oImage, MappingFunc oMappingFunc)
+            //{
+            //    m_oImage                = oImage;
+            //    m_oMappingFunc          = oMappingFunc;
+            //    m_eInput                = EInput.IMAGE;
+            //}
 
             protected float fConstSurfaceDummyFunc(float fPhi, float fLengthRatio)
             {
@@ -131,14 +131,14 @@ namespace Leap71
                 {
                     return m_oFunc(fPhi, fLengthRatio);
                 }
-                else if (m_eInput == EInput.IMAGE)
-                {
-                    int iWidth          = (int)(fPhi * (m_oImage.nWidth - 1));
-                    int iHeight         = (int)(fLengthRatio * (m_oImage.nHeight - 1));
-                    float fGrayValue    = m_oImage.fValue(iWidth, iHeight);
-                    float fValue        = m_oMappingFunc(fGrayValue);
-                    return fValue;
-                }
+                //else if (m_eInput == EInput.IMAGE)
+                //{
+                //    int iWidth          = (int)(fPhi * (m_oImage.nWidth - 1));
+                //    int iHeight         = (int)(fLengthRatio * (m_oImage.nHeight - 1));
+                //    float fGrayValue    = m_oImage.fValue(iWidth, iHeight);
+                //    float fValue        = m_oMappingFunc(fGrayValue);
+                //    return fValue;
+                //}
                 else
                 {
                     throw new Exception("Invalid Surface Modulation type.");

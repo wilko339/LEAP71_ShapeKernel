@@ -32,7 +32,8 @@
 // limitations under the License.   
 //
 
-
+using System;
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 
@@ -285,7 +286,7 @@ namespace Leap71
             /// </summary>
             public Vector3 vecGetSurfacePoint(float fHeightRatio, float fPhiRatio, float fRadiusRatio)
             {
-                float fPhi      = 2f * MathF.PI * fPhiRatio;
+                float fPhi      = 2f * (float)Math.PI * fPhiRatio;
                 float fRadius   = (m_fOuterRadius - m_fInnerRadius) * fRadiusRatio + m_fInnerRadius;
 
                 float fZ = fGetHeight(fHeightRatio, fPhi, fRadiusRatio);

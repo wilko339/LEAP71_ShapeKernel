@@ -32,6 +32,7 @@
 // limitations under the License.   
 //
 
+using System.Collections.Generic;
 
 namespace Leap71
 {
@@ -55,7 +56,7 @@ namespace Leap71
                         aFinalList.Add(fValue);
                     }
                 }
-                aFinalList.Add(aList[^1]);
+                aFinalList.Add(aList[aList.Count]);
                 return aFinalList;
             }
 
@@ -72,7 +73,7 @@ namespace Leap71
                 {
                     aFinalList.Add(aList[i]);
                 }
-                aFinalList.Add(aList[^1]);
+                aFinalList.Add(aList[aList.Count]);
                 return aFinalList;
             }
 

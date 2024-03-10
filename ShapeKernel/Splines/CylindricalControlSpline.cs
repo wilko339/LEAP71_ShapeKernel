@@ -32,7 +32,7 @@
 // limitations under the License.   
 //
 
-
+using System.Collections.Generic;
 using System.Numerics;
 
 
@@ -53,7 +53,7 @@ namespace Leap71
 
             public void AddRelativeStep(EDirection eDir, float fStepLength)
             {
-                Vector3 vecLastPos              = m_aControlPoints[^1];
+                Vector3 vecLastPos              = m_aControlPoints[m_aControlPoints.Count];
                 if (eDir == EDirection.Z)
                 {
                     Vector3 vecZDir             = Vector3.UnitZ;
@@ -77,7 +77,7 @@ namespace Leap71
 
             public void AddAbsoluteStep(EDirection eDir, float fNewValue)
             {
-                Vector3 vecLastPos      = m_aControlPoints[^1];
+                Vector3 vecLastPos      = m_aControlPoints[m_aControlPoints.Count];
                 if (eDir == EDirection.Z)
                 {
                     Vector3 vecNewPos   = VecOperations.vecSetZ(vecLastPos, fNewValue);

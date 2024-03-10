@@ -32,8 +32,10 @@
 // limitations under the License.   
 //
 
-
+using System;
+using MathFloat;
 using System.Numerics;
+using System.Collections.Generic;
 
 
 namespace Leap71
@@ -202,7 +204,7 @@ namespace Leap71
 
                 for (int j = 0; j < 180; j++)
                 {
-                    float fPhi              = (2 * MathF.PI) / 360 * j;
+                    float fPhi              = (2 * (float)Math.PI) / 360 * j;
                     Vector3 vecNewLocalX    = MathF.Cos(fPhi) * vecInitLocalX + MathF.Sin(fPhi) * vecInitLocalY;
                     float fDotProduct       = MathF.Abs(Vector3.Dot(vecNewLocalX, vecTargetX));
                     if (fDotProduct > fMaxDotProduct)
@@ -248,7 +250,7 @@ namespace Leap71
 
                 //add continuous start and end
                 aTangents.Insert(0, aTangents[0]);
-                aTangents.Add(aTangents[^1]);
+                aTangents.Add(aTangents[aTangents.Count - 1]);
                 return aTangents;
             }
 

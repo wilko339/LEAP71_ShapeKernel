@@ -32,7 +32,7 @@
 // limitations under the License.   
 //
 
-
+using System;
 using System.Numerics;
 using PicoGK;
 
@@ -112,7 +112,7 @@ namespace Leap71
 				Voxels voxSphere			= oSphere.voxConstruct();
 
 				float fMeasuredSurfaceArea	= fGetSurfaceArea(voxSphere);
-				float fAnalyticSurfaceArea	= 4f * MathF.PI * fRadius * fRadius;
+				float fAnalyticSurfaceArea	= 4f * (float)Math.PI * fRadius * fRadius;
 
 				Library.Log($"Measured surface area = {fMeasuredSurfaceArea} mm^2.");
                 Library.Log($"Expected surface area = {fAnalyticSurfaceArea} mm^2.");
@@ -128,7 +128,7 @@ namespace Leap71
 				Voxels voxSphere			= oSphere.voxConstruct();
 
 				float fMeasuredVolume		= fGetVolume(voxSphere);
-				float fAnalyticVolume		= 4f / 3f * MathF.PI * fRadius * fRadius * fRadius;
+				float fAnalyticVolume		= 4f / 3f * (float)Math.PI * fRadius * fRadius * fRadius;
 
 				Library.Log($"Measured volume = {fMeasuredVolume} mm^3.");
                 Library.Log($"Expected volume = {fAnalyticVolume} mm^3.");

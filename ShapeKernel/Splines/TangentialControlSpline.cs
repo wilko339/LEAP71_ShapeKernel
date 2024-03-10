@@ -33,6 +33,7 @@
 //
 
 
+using System.Collections.Generic;
 using System.Numerics;
 
 
@@ -42,7 +43,7 @@ namespace Leap71
     {
         public interface ISpline
         {
-            public abstract List<Vector3> aGetPoints(uint nSamples = 500);
+            List<Vector3> aGetPoints(uint nSamples = 500);
         }
 
         public class TangentialControlSpline : ISpline

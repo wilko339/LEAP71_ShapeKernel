@@ -32,8 +32,8 @@
 // limitations under the License.   
 //
 
-
-
+using MathFloat;
+using System.Collections.Generic;
 using System.Numerics;
 
 
@@ -106,7 +106,7 @@ namespace Leap71
 
 			protected static float fGetMaxError(List<Vector3> aLinePoints)
 			{
-				Vector3 vecLineDir		= aLinePoints[^1] - aLinePoints[0];
+				Vector3 vecLineDir		= aLinePoints[aLinePoints.Count] - aLinePoints[0];
 				float fMaxError			= 0;
 				int iCounter			= 0;
 				for (int i = 1; i < aLinePoints.Count - 1; i++)

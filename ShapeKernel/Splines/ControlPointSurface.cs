@@ -32,8 +32,9 @@
 // limitations under the License.   
 //
 
-
+using System.Collections.Generic;
 using System.Numerics;
+using MathFloat;
 
 
 namespace Leap71
@@ -77,7 +78,7 @@ namespace Leap71
                 if (m_eEndsU == EEnds.CLOSED)
                 {
                     //check that first and last points are not the same!
-                    if ((m_aControlGrid[0][0] - m_aControlGrid[^1][0]).Length() < m_fError)
+                    if ((m_aControlGrid[0][0] - m_aControlGrid[m_aControlGrid.Count][0]).Length() < m_fError)
                     {
                         m_aControlGrid = GridOperations.aRemoveListInX(m_aControlGrid, (uint)m_aControlGrid.Count - 1);
                     }
@@ -86,7 +87,7 @@ namespace Leap71
                 if (m_eEndsV == EEnds.CLOSED)
                 {
                     //check that first and last points are not the same!
-                    if ((m_aControlGrid[0][0] - m_aControlGrid[0][^1]).Length() < m_fError)
+                    if ((m_aControlGrid[0][0] - m_aControlGrid[0][m_aControlGrid.Count]).Length() < m_fError)
                     {
                         m_aControlGrid = GridOperations.aRemoveListInY(m_aControlGrid, (uint)m_aControlGrid.Count - 1);
                     }
@@ -228,7 +229,7 @@ namespace Leap71
                     //last iteration loop
                     if (
                         (fLengthRatio >= aKnot[nControlPoint] && fLengthRatio < aKnot[nControlPoint + 1]) ||
-                        ((MathF.Abs(fLengthRatio - aKnot[nControlPoint + 1]) < m_fError) && (MathF.Abs(fLengthRatio - aKnot[^1]) < m_fError))
+                        ((MathF.Abs(fLengthRatio - aKnot[nControlPoint + 1]) < m_fError) && (MathF.Abs(fLengthRatio - aKnot[aKnot.Count]) < m_fError))
                         )
                     {
                         fValue = 1f;

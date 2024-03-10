@@ -32,7 +32,8 @@
 // limitations under the License.   
 //
 
-
+using System.IO;
+using System;
 using PicoGK;
 
 
@@ -42,24 +43,24 @@ namespace Leap71
     {
         public partial class Sh
         {
-            public static void ExportMeshToSTLFile(Mesh oMesh, string strFilePath)
-            {
-                try
-                {
-                    oMesh.SaveToStlFile(strFilePath);
-                    Library.Log($"STL Export: {strFilePath} exported.");
-                }
-                catch (Exception e)
-                {
-                    Library.Log("Could not save STL: " + e.Message);
-                }
-            }
+            //public static void ExportMeshToSTLFile(Mesh oMesh, string strFilePath)
+            //{
+            //    try
+            //    {
+            //        oMesh.SaveToStlFile(strFilePath);
+            //        Library.Log($"STL Export: {strFilePath} exported.");
+            //    }
+            //    catch (Exception e)
+            //    {
+            //        Library.Log("Could not save STL: " + e.Message);
+            //    }
+            //}
 
-            public static void ExportVoxelsToSTLFile(Voxels oVoxels, string strFilePath)
-            {
-                Mesh oMesh = new Mesh(oVoxels);
-                ExportMeshToSTLFile(oMesh, strFilePath);
-            }
+            //public static void ExportVoxelsToSTLFile(Voxels oVoxels, string strFilePath)
+            //{
+            //    Mesh oMesh = new Mesh(oVoxels);
+            //    ExportMeshToSTLFile(oMesh, strFilePath);
+            //}
 
             public static void ExportVoxelsToVDBFile(Voxels oVoxels, string strFilePath)
             {

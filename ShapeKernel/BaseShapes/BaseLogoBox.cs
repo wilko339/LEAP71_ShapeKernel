@@ -32,7 +32,7 @@
 // limitations under the License.   
 //
 
-
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 
@@ -59,12 +59,12 @@ namespace Leap71
                 LocalFrame oFrame,
                 float fLength,
                 float fRefWidth,
-                Image oImage,
+                //Image oImage,
                 MappingFunc oMappingFunc) : base()
             {
                 m_aFrames           = new Frames(fLength, oFrame);
-                int iImageWidth     = oImage.nWidth;
-                int iImageHeight    = oImage.nHeight;
+                //int iImageWidth     = oImage.nWidth;
+                //int iImageHeight    = oImage.nHeight;
                 SetWidthSteps((uint)iImageWidth);
                 SetDepthSteps((uint)iImageHeight);
                 SetLengthSteps(5);

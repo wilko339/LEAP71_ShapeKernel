@@ -32,7 +32,8 @@
 // limitations under the License.   
 //
 
-
+using System;
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 
@@ -56,8 +57,8 @@ namespace Leap71
             {
                 //phi is the azimuthal angle
                 //theta is the polar angle
-                SetAzimuthalSteps(360);
-                SetPolarSteps(180);
+                SetAzimuthalSteps(180);
+                SetPolarSteps(90);
                 m_oFrame            = oFrame;
                 m_oRadiusModulation = new SurfaceModulation(fRadius);
                 m_bTransformed      = false;
@@ -127,8 +128,8 @@ namespace Leap71
             /// </summary>
             public Vector3 vecGetSurfacePoint(float fPhiRatio, float fThetaRatio, float fRadiusRatio)
             {
-                float fTheta    = 1f * MathF.PI * fThetaRatio;
-                float fPhi      = 2f * MathF.PI * fPhiRatio;
+                float fTheta    = 1f * (float)Math.PI * fThetaRatio;
+                float fPhi      = 2f * (float)Math.PI * fPhiRatio;
 
                 Vector3 vecPos  = m_oFrame.vecGetPosition();
                 float fRadius   = fRadiusRatio * fGetRadius(fPhi, fTheta);

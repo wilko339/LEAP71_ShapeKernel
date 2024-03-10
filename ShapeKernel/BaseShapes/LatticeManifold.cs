@@ -32,7 +32,8 @@
 // limitations under the License.   
 //
 
-
+using System;
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 
@@ -123,9 +124,9 @@ namespace Leap71
 
                 float fHalfAlpha        = 90f - m_fLimitAngle;
                 float fR                = fBeam;
-                float fH                = fR * (1 - MathF.Cos(fHalfAlpha / 180f * MathF.PI));
-                float fS                = 2f * fR * MathF.Sin(fHalfAlpha / 180f * MathF.PI);
-                float fTipLength        = MathF.Tan(fHalfAlpha / 180f * MathF.PI) * (0.5f * fS - m_fMaxPrintableRadius);
+                float fH                = fR * (1 - MathF.Cos(fHalfAlpha / 180f * (float)Math.PI));
+                float fS                = 2f * fR * MathF.Sin(fHalfAlpha / 180f * (float)Math.PI);
+                float fTipLength        = MathF.Tan(fHalfAlpha / 180f * (float)Math.PI) * (0.5f * fS - m_fMaxPrintableRadius);
 
                 if (bZPositive == true)
                 {
@@ -145,7 +146,7 @@ namespace Leap71
             {
                 vecDir                  = vecDir.Normalize();
                 float fConnectionAngle  = VecOperations.fGetAngleBetween(vecDir, -Vector3.UnitZ);
-                float fDegAngle         = fConnectionAngle / MathF.PI * 180f;
+                float fDegAngle         = fConnectionAngle / (float)Math.PI * 180f;
                 return fDegAngle;
             }
         }

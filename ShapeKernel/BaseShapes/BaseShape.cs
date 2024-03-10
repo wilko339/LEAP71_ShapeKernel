@@ -43,22 +43,22 @@ namespace Leap71
     {
         public interface ISurfaceBaseShape
         {
-            public Vector3 vecGetSurfacePoint(float fRatio1, float fRatio2, float fRatio3);
+            Vector3 vecGetSurfacePoint(float fRatio1, float fRatio2, float fRatio3);
         }
 
         public interface ISpineBaseShape
         {
-            public Vector3 vecGetSpinePoint(float fRatio1);
+            Vector3 vecGetSpinePoint(float fRatio1);
         }
 
         public interface IMeshBaseShape
         {
-            public Mesh mshConstruct();
+            Mesh mshConstruct();
         }
 
         public interface ILatticeBaseShape
         {
-            public Lattice latConstruct();
+            Lattice latConstruct();
         }
 
         public abstract class BaseShape

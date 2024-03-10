@@ -32,6 +32,8 @@
 // limitations under the License.   
 //
 
+using System;
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 

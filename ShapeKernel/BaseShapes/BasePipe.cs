@@ -32,7 +32,8 @@
 // limitations under the License.   
 //
 
-
+using System;
+using MathFloat;
 using System.Numerics;
 using PicoGK;
 
@@ -62,7 +63,7 @@ namespace Leap71
                 float fOuterRadius = 20) : base()
             {
                 m_aFrames = new Frames(fLength, oFrame);
-                SetPolarSteps(360);
+                SetPolarSteps(180);
                 SetRadialSteps(5);
                 SetLengthSteps(5);
 
@@ -82,9 +83,9 @@ namespace Leap71
                 float fOuterRadius = 20) : base()
             {
                 m_aFrames = aFrames;
-                SetPolarSteps(360);
+                SetPolarSteps(90);
                 SetRadialSteps(5);
-                SetLengthSteps(500);
+                SetLengthSteps(100);
 
                 m_oInnerRadiusModulation = new SurfaceModulation(fInnerRadius);
                 m_oOuterRadiusModulation = new SurfaceModulation(fOuterRadius);
@@ -307,7 +308,7 @@ namespace Leap71
                 Vector3 vecLocalX   = m_aFrames.vecGetLocalXAlongLength(fLengthRatio);
                 Vector3 vecLocalY   = m_aFrames.vecGetLocalYAlongLength(fLengthRatio);
 
-                float fPhi          = (2f * MathF.PI) * fPhiRatio;
+                float fPhi          = (2f * (float)Math.PI) * fPhiRatio;
 
                 float fOuterRadius  = fGetOuterRadius(fPhi, fLengthRatio);
                 float fInnerRadius  = fGetInnerRadius(fPhi, fLengthRatio);

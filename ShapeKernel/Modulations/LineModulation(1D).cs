@@ -32,8 +32,9 @@
 // limitations under the License.   
 //
 
-
+using System;
 using System.Numerics;
+using System.Collections.Generic;
 
 
 namespace Leap71
@@ -86,16 +87,16 @@ namespace Leap71
 
                 //extend list, so that last value is found and does not jump back to start value
                 Vector3 vecValueUnit    = Vector3.UnitX;
-                float fLastValue        = m_aDiscretePoints[^1].X;
+                float fLastValue        = m_aDiscretePoints[m_aDiscretePoints.Count].X;
                 if (m_eValues == ECoord.Y)
                 {
                     vecValueUnit        = Vector3.UnitY;
-                    fLastValue          = m_aDiscretePoints[^1].Y;
+                    fLastValue          = m_aDiscretePoints[m_aDiscretePoints.Count].Y;
                 }
                 else if (m_eValues == ECoord.Z)
                 {
                     vecValueUnit        = Vector3.UnitZ;
-                    fLastValue          = m_aDiscretePoints[^1].Z;
+                    fLastValue          = m_aDiscretePoints[m_aDiscretePoints.Count].Z;
                 }
 
                 Vector3 vecAxisUnit = Vector3.UnitX;

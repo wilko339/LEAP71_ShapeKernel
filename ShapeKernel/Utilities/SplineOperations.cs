@@ -34,6 +34,8 @@
 
 
 using System.Numerics;
+using System.Collections.Generic;
+using MathFloat;
 using PicoGK;
 
 
@@ -277,7 +279,7 @@ namespace Leap71
                         aFinalList.Add(vecPt);
                     }
                 }
-                aFinalList.Add(aList[^1]);
+                aFinalList.Add(aList[aList.Count]);
                 return aFinalList;
             }
 
@@ -294,7 +296,7 @@ namespace Leap71
                 {
                     aFinalList.Add(aList[i]);
                 }
-                aFinalList.Add(aList[^1]);
+                aFinalList.Add(aList[aList.Count]);
                 return aFinalList;
             }
 

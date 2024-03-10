@@ -32,9 +32,11 @@
 // limitations under the License.   
 //
 
-
+using System.Collections.Generic;
 using System;
 using System.Numerics;
+using System.Threading;
+using MathFloat;
 
 
 namespace Leap71
@@ -238,7 +240,7 @@ namespace Leap71
                 {
                     float fK        = i + 0.5f;
                     float fR        = MathF.Sqrt((fK) / (float)nSamples);
-                    float fPhi      = MathF.PI * (1 + MathF.Sqrt(5f)) * fK;
+                    float fPhi      = (float)Math.PI * (1 + MathF.Sqrt(5f)) * fK;
                     float fX        = fR * fOuterRadius * MathF.Cos(fPhi);
                     float fY        = fR * fOuterRadius * MathF.Sin(fPhi);
                     Vector3 vecPt   = new Vector3(fX, fY, 0f);
@@ -258,7 +260,7 @@ namespace Leap71
                 {
                     float fK        = i + 0.5f;
                     float fPhi      = MathF.Acos(1f - 2f * fK / (float)nSamples);
-                    float fTheta    = MathF.PI * (1 + MathF.Sqrt(5f)) * fK;
+                    float fTheta    = (float)Math.PI * (1 + MathF.Sqrt(5f)) * fK;
                     float fX        = fOuterRadius * MathF.Cos(fTheta) * MathF.Sin(fPhi);
                     float fY        = fOuterRadius * MathF.Sin(fTheta) * MathF.Sin(fPhi);
                     float fZ        = fOuterRadius * MathF.Cos(fPhi);
