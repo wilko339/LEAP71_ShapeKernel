@@ -70,9 +70,9 @@ namespace Leap71
             /// <summary>
             /// Line modulation based on a (continuous) 1D function.
             /// </summary>
-            public LineModulation(RatioFunc oModuationFunc)
+            public LineModulation(RatioFunc oModulationFunc)
             {
-                m_oFunc                 = oModuationFunc;
+                m_oFunc                 = oModulationFunc;
                 m_eInput                = EInput.FUNC;
             }
 
