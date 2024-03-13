@@ -1,3 +1,6 @@
+# Edited for PicoGH
+This is a fork from the original PicoGK library. This version has been modified for C# 7.3 to compatibility with Grasshopper.
+
 # Welcome to ShapeKernel
 
 
