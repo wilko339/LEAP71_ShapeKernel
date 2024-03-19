@@ -35,6 +35,7 @@
 using System;
 using System.Numerics;
 using System.Collections.Generic;
+using System.Linq;
 
 
 namespace Leap71
@@ -52,6 +53,7 @@ namespace Leap71
             protected ECoord            m_eAxis;
             protected List<Vector3>     m_aDiscretePoints;
             protected List<float>       m_aDiscreteValues;
+            public List<float>       m_aDiscreteLengthRatios;
             protected RatioFunc         m_oFunc;
             protected EInput            m_eInput;
             public float                m_fConstValue;
@@ -74,6 +76,71 @@ namespace Leap71
             {
                 m_oFunc                 = oModulationFunc;
                 m_eInput                = EInput.FUNC;
+            }
+
+            /// <summary>
+            /// Line modulation based on values at given length ratios. The two lists must be of equal length and the length ratios should be sorted in ascending order.
+            /// </summary>
+            /// <param name="modulationValues"></param>
+            /// <param name="parameterValues"></param>
+            public LineModulation(List<float> aDiscreteValues, List<float> aLengthRatios)
+            {
+                m_aDiscreteValues = aDiscreteValues;
+                m_aDiscreteLengthRatios = aLengthRatios;
+
+                if (aDiscreteValues.Count != aLengthRatios.Count)
+                {
+                    throw new Exception("Values and length ratio lists must have the same length.");
+                }
+
+                m_oFunc = oValuesDummyFunc;
+            }
+
+            protected float oValuesDummyFunc(float fRatio)
+            {
+                int closestIndex = FindClosestIndex(fRatio);
+
+                float x0 = m_aDiscreteLengthRatios[closestIndex];
+                float x1 = m_aDiscreteLengthRatios[closestIndex + 1];
+                float y0 = m_aDiscreteValues[closestIndex];
+                float y1 = m_aDiscreteValues[closestIndex + 1];
+
+                float output = y0 + (fRatio - x0) * (y1 - y0) / (x1 - x0);
+
+                if (output > m_aDiscreteValues.Max())
+                {
+                    throw new Exception("Something went terribly wrong...");
+                }
+
+                return output;
+            }
+
+            protected int FindClosestIndex(float fRatio)
+            {
+                int closestIndex = 0;
+
+                if (fRatio <= 0)
+                {
+                    return 0;
+                }
+
+                if (fRatio >= 1)
+                {
+                    return m_aDiscreteLengthRatios.Count - 2;
+                }
+
+                else
+                {
+                    for (int i = 0; i < m_aDiscreteLengthRatios.Count - 1; i++)
+                    {
+                        if (fRatio >= m_aDiscreteLengthRatios[i] && fRatio <= m_aDiscreteLengthRatios[i + 1])
+                        {
+                            closestIndex = i;
+                            break;
+                        }
+                    }
+                }
+                return closestIndex;
             }
 
             /// <summary>
