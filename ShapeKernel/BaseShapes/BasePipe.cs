@@ -49,7 +49,7 @@ namespace Leap71
             protected uint              m_nRadialSteps;
             protected SurfaceModulation m_oOuterRadiusModulation;
             protected SurfaceModulation m_oInnerRadiusModulation;
-            protected Frames            m_aFrames;
+            public Frames               m_aFrames;
 
             /// <summary>
             /// Initialises a pipe based on a local frame and 2 dimensions.
@@ -101,6 +101,13 @@ namespace Leap71
                 SetLengthSteps(500);
             }
 
+            public void SetRadius(SurfaceModulation oInnerRadiusOverCylinder, SurfaceModulation oOuterRadiusOverCylinder, uint lengthSteps)
+            {
+                m_oInnerRadiusModulation = oInnerRadiusOverCylinder;
+                m_oOuterRadiusModulation = oOuterRadiusOverCylinder;
+                SetLengthSteps(lengthSteps);
+            }
+
             public void SetRadialSteps(uint nRadialSteps)
             {
                 m_nRadialSteps = Math.Max(5, nRadialSteps);
@@ -113,7 +120,8 @@ namespace Leap71
 
             public void SetLengthSteps(uint nLengthSteps)
             {
-                m_nLengthSteps = Math.Max(5, nLengthSteps);
+                // Changed this to a min of 2 for straight segments
+                m_nLengthSteps = Math.Max(2, nLengthSteps);
             }
 
 
