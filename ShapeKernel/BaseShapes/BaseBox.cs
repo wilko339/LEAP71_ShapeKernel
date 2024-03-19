@@ -48,7 +48,7 @@ namespace Leap71
             protected uint              m_nDepthSteps;
             protected LineModulation    m_oWidthModulation;
             protected LineModulation    m_oDepthModulation;
-            protected Frames            m_aFrames;
+            public Frames               m_aFrames;
 
             /// <summary>
             /// Initialises a box based on a local frame and 3 dimensions.
