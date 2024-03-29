@@ -44,11 +44,11 @@ namespace Leap71
         public class BasePipeSegment : BasePipe
         {
             public enum EMethod         { START_END, MID_RANGE };
-            protected EMethod           m_eMethod;
-            protected LineModulation    m_oStartModulation;
-            protected LineModulation    m_oEndModulation;
-            protected LineModulation    m_oRangeModulation;
-            protected LineModulation    m_oMidModulation;
+            public readonly EMethod           m_eMethod;
+            public readonly LineModulation    m_oStartModulation;
+            public readonly LineModulation    m_oEndModulation;
+            public readonly LineModulation    m_oRangeModulation;
+            public readonly LineModulation    m_oMidModulation;
 
             /// <summary>
             /// Initialises a pipe segment based on a local frame and 3 dimensions.
@@ -113,6 +113,20 @@ namespace Leap71
                 }
             }
 
+            protected BasePipeSegment(
+                Frames aFrames, 
+                uint iPolarSteps,
+                uint iRadialSteps,
+                uint iLengthSteps,
+                SurfaceModulation oInnerRadiusModulation,
+                SurfaceModulation oOuterRadiusModulation,
+                LineModulation oStartOrMidModulation,
+                LineModulation oEndOrRangeModulation) : base(aFrames, iPolarSteps, iRadialSteps, iLengthSteps, oInnerRadiusModulation, oOuterRadiusModulation)
+            {
+                m_eMethod = EMethod.MID_RANGE;
+                m_oMidModulation = oStartOrMidModulation;
+                m_oRangeModulation = oEndOrRangeModulation;
+            }
 
             //construction
             public override Mesh mshConstruct()
@@ -256,6 +270,31 @@ namespace Leap71
                     fPhi = m_oMidModulation.fGetModulation(fLengthRatio) - 0.5f * m_oRangeModulation.fGetModulation(fLengthRatio);
                 }
                 return fPhi;
+            }
+
+            public BasePipeSegment DeepClone()
+            {
+                // Use private constructor
+                // Hopefully this works ok
+
+                Frames clonedFrames = m_aFrames.DeepClone();
+                SurfaceModulation clonedInnerMod = m_oInnerRadiusModulation.DeepClone();
+                SurfaceModulation clonedOuterMod = m_oOuterRadiusModulation.DeepClone();
+                LineModulation clonedMidMod = m_oMidModulation.DeepClone();
+                LineModulation clonedRangeMod = m_oRangeModulation.DeepClone();
+
+                BasePipeSegment clone = new BasePipeSegment(
+                    clonedFrames,
+                    m_nPolarSteps,
+                    m_nRadialSteps,
+                    m_nLengthSteps,
+                    clonedInnerMod,
+                    clonedOuterMod,
+                    clonedMidMod,
+                    clonedRangeMod
+                );
+                
+                return clone;
             }
         }
     }

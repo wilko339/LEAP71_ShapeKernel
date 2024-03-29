@@ -41,7 +41,7 @@ namespace Leap71
 {
     namespace ShapeKernel
     {
-        public class BaseBox : BaseShape, IMeshBaseShape,ISurfaceBaseShape
+        public class BaseBox : BaseShape, IMeshBaseShape,ISurfaceBaseShape, IDeepCloneable<BaseBox>
         {
             protected uint              m_nLengthSteps;
             protected uint              m_nWidthSteps;
@@ -93,6 +93,31 @@ namespace Leap71
                 m_oWidthModulation  = new LineModulation(fWidth);
                 m_oDepthModulation  = new LineModulation(fDepth);
                 m_bTransformed      = false;
+            }
+
+            /// <summary>
+            /// Private constructor used for cloning. 
+            /// </summary>
+            /// <param name="aFrames"></param>
+            /// <param name="nLengthSteps"></param>
+            /// <param name="nWidthSteps"></param>
+            /// <param name="nDepthSteps"></param>
+            /// <param name="oWidthModulation"></param>
+            /// <param name="oDepthModulation"></param>
+            private BaseBox(
+                Frames aFrames,
+                uint nLengthSteps,
+                uint nWidthSteps, 
+                uint nDepthSteps,
+                LineModulation oWidthModulation,
+                LineModulation oDepthModulation)
+            {
+                m_aFrames = aFrames;
+                SetLengthSteps(nLengthSteps);
+                SetWidthSteps(nWidthSteps);
+                SetDepthSteps(nDepthSteps);
+                m_oWidthModulation = oWidthModulation;
+                m_oDepthModulation = oDepthModulation;
             }
 
 
@@ -416,6 +441,18 @@ namespace Leap71
             {
                 float fWidth = m_oWidthModulation.fGetModulation(fLengthRatio);
                 return fWidth;
+            }
+
+            public BaseBox DeepClone()
+            {
+                return new BaseBox(
+                    m_aFrames.DeepClone(),
+                    m_nLengthSteps, 
+                    m_nWidthSteps,
+                    m_nDepthSteps,
+                    m_oWidthModulation.DeepClone(),
+                    m_oDepthModulation.DeepClone()
+                    );
             }
         }
     }

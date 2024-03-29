@@ -41,7 +41,7 @@ namespace Leap71
     namespace ShapeKernel
     {
         //Modulation in 2D
-        public class SurfaceModulation
+        public class SurfaceModulation : IDeepCloneable<SurfaceModulation>
         {
             public delegate float       MappingFunc(float fGrayValue);
             public delegate float       RatioFunc(float fPhi, float fLengthRatio);
@@ -168,6 +168,15 @@ namespace Leap71
             protected static float fGetSubtractedModulation(float fPhi, float fLengthRatio)
             {
                 return m_oMod1.fGetModulation(fPhi, fLengthRatio) - m_oMod2.fGetModulation(fPhi, fLengthRatio);
+            }
+
+            public SurfaceModulation DeepClone()
+            {
+                SurfaceModulation clone = (SurfaceModulation)MemberwiseClone();
+
+                // No reference types to copy
+
+                return clone;
             }
         }
     }

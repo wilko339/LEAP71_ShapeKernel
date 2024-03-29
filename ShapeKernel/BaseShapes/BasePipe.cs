@@ -42,7 +42,7 @@ namespace Leap71
 {
     namespace ShapeKernel
     {
-        public class BasePipe : BaseShape, IMeshBaseShape, ISurfaceBaseShape
+        public class BasePipe : BaseShape, IMeshBaseShape, ISurfaceBaseShape, IDeepCloneable<BasePipe>
         {
             protected uint              m_nLengthSteps;
             protected uint              m_nPolarSteps;
@@ -90,6 +90,29 @@ namespace Leap71
                 m_oInnerRadiusModulation = new SurfaceModulation(fInnerRadius);
                 m_oOuterRadiusModulation = new SurfaceModulation(fOuterRadius);
                 m_bTransformed           = false;
+            }
+
+            /// <summary>
+            /// A private constructor used for cloning.
+            /// </summary>
+            /// <param name="aFrames"></param>
+            /// <param name="oInnerRadiusModulation"></param>
+            /// <param name="oOuterRadiusModulation"></param>
+            protected BasePipe(
+                Frames aFrames, 
+                uint iPolarSteps,
+                uint iRadialSteps,
+                uint iLengthSteps,
+                SurfaceModulation oInnerRadiusModulation,
+                SurfaceModulation oOuterRadiusModulation) : base()
+            {
+                m_aFrames = aFrames;
+                SetPolarSteps(iPolarSteps);
+                SetRadialSteps(iRadialSteps);
+                SetLengthSteps(iLengthSteps);
+
+                m_oInnerRadiusModulation = oInnerRadiusModulation;
+                m_oOuterRadiusModulation = oOuterRadiusModulation;
             }
 
 
@@ -344,6 +367,20 @@ namespace Leap71
             {
                 float fRadius = fRadius = m_oOuterRadiusModulation.fGetModulation(fPhi, fLengthRatio);
                 return fRadius;
+            }
+
+            public BasePipe DeepClone()
+            {
+                BasePipe clone = new BasePipe(
+                    m_aFrames.DeepClone(),
+                    m_nPolarSteps, 
+                    m_nRadialSteps,
+                    m_nLengthSteps,
+                    m_oInnerRadiusModulation.DeepClone(),
+                    m_oOuterRadiusModulation.DeepClone()
+                    );
+
+                return clone;
             }
         }
     }

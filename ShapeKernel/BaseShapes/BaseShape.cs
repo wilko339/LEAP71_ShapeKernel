@@ -61,6 +61,11 @@ namespace Leap71
             Lattice latConstruct();
         }
 
+        public interface IDeepCloneable<TSelf> where TSelf : IDeepCloneable<TSelf>
+        {
+            TSelf DeepClone();
+        }
+
         public abstract class BaseShape
         {
             public delegate Vector3     TrafoFunc(Vector3 vecPt);

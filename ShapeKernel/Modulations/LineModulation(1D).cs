@@ -36,6 +36,7 @@ using System;
 using System.Numerics;
 using System.Collections.Generic;
 using System.Linq;
+using Rhino.Geometry;
 
 
 namespace Leap71
@@ -43,7 +44,7 @@ namespace Leap71
     namespace ShapeKernel
     {
         //Modulation in 1D
-        public class LineModulation
+        public class LineModulation : IDeepCloneable<LineModulation>
         {
             public delegate float       RatioFunc(float fRatio);
             public enum                 EInput { FUNC };
@@ -53,7 +54,7 @@ namespace Leap71
             protected ECoord            m_eAxis;
             protected List<Vector3>     m_aDiscretePoints;
             protected List<float>       m_aDiscreteValues;
-            public List<float>       m_aDiscreteLengthRatios;
+            public List<float>          m_aDiscreteLengthRatios;
             protected RatioFunc         m_oFunc;
             protected EInput            m_eInput;
             public float                m_fConstValue;
@@ -94,6 +95,11 @@ namespace Leap71
                 }
 
                 m_oFunc = oValuesDummyFunc;
+            }
+
+            public LineModulation DeepCopy()
+            {
+                return (LineModulation)MemberwiseClone();
             }
 
             protected float oValuesDummyFunc(float fRatio)
@@ -305,6 +311,22 @@ namespace Leap71
             protected static float fGetSubtractedModulation(float fLengthRatio)
             {
                 return m_oMod1.fGetModulation(fLengthRatio) - m_oMod2.fGetModulation(fLengthRatio);
+            }
+
+            public LineModulation DeepClone()
+            {
+                LineModulation clone = (LineModulation)MemberwiseClone();
+
+                // Reference type clones
+                clone.m_aDiscretePoints = m_aDiscretePoints != null ? new List<Vector3>(m_aDiscretePoints) : null;
+                clone.m_aDiscreteValues = m_aDiscreteValues != null ? new List<float>(m_aDiscreteValues) : null;
+                clone.m_aDiscreteLengthRatios = m_aDiscreteLengthRatios !=  null ? new List<float>(m_aDiscreteLengthRatios) : null;
+
+                // Delegate clone
+                // Revise this
+                clone.m_oFunc = m_oFunc;
+
+                return clone;
             }
         }
     }

@@ -42,7 +42,7 @@ namespace Leap71
 {
     namespace ShapeKernel
     {
-        public class Frames : ISpline
+        public class Frames : ISpline, IDeepCloneable<Frames>
         {
             public enum EFrameType { CYLINDRICAL, SPHERICAL, Z, MIN_ROTATION };
 
@@ -337,6 +337,19 @@ namespace Leap71
             public List<Vector3> aGetPoints(uint nSamples)
             {
                 return SplineOperations.aGetReparametrizedSpline(m_aPoints, nSamples);
+            }
+
+            public Frames DeepClone()
+            {
+                Frames clone = (Frames)MemberwiseClone();
+
+                // Reference types
+                clone.m_aPoints = new List<Vector3>(m_aPoints);
+                clone.m_aLocalX = new List<Vector3>(m_aLocalX);
+                clone.m_aLocalY = new List<Vector3>(m_aLocalY);
+                clone.m_aLocalZ = new List<Vector3>(m_aLocalZ);
+
+                return clone;
             }
         }
     }
