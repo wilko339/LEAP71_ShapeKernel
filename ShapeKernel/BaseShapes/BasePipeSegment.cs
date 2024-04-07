@@ -244,7 +244,7 @@ namespace Leap71
 
             protected float fGetEndPhi(float fLengthRatio)
             {
-                float fPhi          = 0;
+                float fPhi;
                 if (m_eMethod == EMethod.START_END)
                 {
                     fPhi            = m_oEndModulation.fGetModulation(fLengthRatio);
@@ -260,7 +260,7 @@ namespace Leap71
 
             protected float fGetStartPhi(float fLengthRatio)
             {
-                float fPhi = 0;
+                float fPhi;
                 if (m_eMethod == EMethod.START_END)
                 {
                     fPhi = m_oStartModulation.fGetModulation(fLengthRatio);
