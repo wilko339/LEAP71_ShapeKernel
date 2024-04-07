@@ -133,12 +133,12 @@ namespace Leap71
 
             public void SetRadialSteps(uint nRadialSteps)
             {
-                m_nRadialSteps = Math.Max(5, nRadialSteps);
+                m_nRadialSteps = Math.Max(2, nRadialSteps);
             }
 
             public void SetPolarSteps(uint nPolarSteps)
             {
-                m_nPolarSteps = Math.Max(5, nPolarSteps);
+                m_nPolarSteps = Math.Max(2, nPolarSteps);
             }
 
             public void SetLengthSteps(uint nLengthSteps)
