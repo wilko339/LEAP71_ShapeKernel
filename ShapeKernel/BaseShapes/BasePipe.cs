@@ -147,7 +147,6 @@ namespace Leap71
                 m_nLengthSteps = Math.Max(2, nLengthSteps);
             }
 
-
             //construction
             public override Voxels voxConstruct()
             {
@@ -159,16 +158,16 @@ namespace Leap71
             public virtual Mesh mshConstruct()
             {
                 Mesh oMesh = new Mesh();
-                AddTopSurface(ref oMesh);
-                AddBottomSurface(ref oMesh, true);
-                AddInnerMantle(ref oMesh);
-                AddOuterMantle(ref oMesh, true);
+                AddTopSurface(ref oMesh, triangulate: Library.bTriangulateMeshes);
+                AddBottomSurface(ref oMesh, true, triangulate: Library.bTriangulateMeshes);
+                AddInnerMantle(ref oMesh, triangulate: Library.bTriangulateMeshes);
+                AddOuterMantle(ref oMesh, true, triangulate: Library.bTriangulateMeshes);
                 return oMesh;
             }
 
 
             //sides
-            protected void AddTopSurface(ref Mesh oMesh, bool bFlip = false)
+            protected void AddTopSurface(ref Mesh oMesh, bool bFlip = false, bool triangulate = true)
             {
                 //iterate across phi and radius
                 int iLengthStep     = (int)m_nLengthSteps - 1;
@@ -189,21 +188,35 @@ namespace Leap71
                         Vector3 vecPt2 = vecGetSurfacePoint(fLengthRatio, fPhiRatio2, fRadiusRatio2);
                         Vector3 vecPt3 = vecGetSurfacePoint(fLengthRatio, fPhiRatio2, fRadiusRatio1);
 
-                        if (bFlip == false)
+                        if (triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            if (bFlip == false)
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
+                                oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            }
                         }
-                        else
+                        if (!triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
-                            oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            if (!bFlip)
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt1, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt3, vecPt2, vecPt1);
+                            }
                         }
                     }
                 }
             }
 
-            protected void AddBottomSurface(ref Mesh oMesh, bool bFlip = false)
+            protected void AddBottomSurface(ref Mesh oMesh, bool bFlip = false, bool triangulate = true)
             {
                 //iterate across phi and radius
                 int iLengthStep     = 0;
@@ -224,21 +237,35 @@ namespace Leap71
                         Vector3 vecPt2 = vecGetSurfacePoint(fLengthRatio, fPhiRatio2, fRadiusRatio2);
                         Vector3 vecPt3 = vecGetSurfacePoint(fLengthRatio, fPhiRatio2, fRadiusRatio1);
 
-                        if (bFlip == false)
+                        if (triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            if (bFlip == false)
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
+                                oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            }
                         }
-                        else
+                        if (!triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
-                            oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            if (!bFlip)
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt1, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt3, vecPt2, vecPt1);
+                            }
                         }
                     }
                 }
             }
 
-            protected void AddOuterMantle(ref Mesh oMesh, bool bFlip = false)
+            protected void AddOuterMantle(ref Mesh oMesh, bool bFlip = false, bool triangulate = true)
             {
                 //iterate across phi and length
                 int iRadiusStep     = (int)m_nRadialSteps - 1;
@@ -259,21 +286,35 @@ namespace Leap71
                         Vector3 vecPt2 = vecGetSurfacePoint(fLengthRatio2, fPhiRatio2, fRadiusRatio);
                         Vector3 vecPt3 = vecGetSurfacePoint(fLengthRatio1, fPhiRatio2, fRadiusRatio);
 
-                        if (bFlip == false)
+                        if (triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            if (bFlip == false)
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
+                                oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            }
                         }
-                        else
+                        if (!triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
-                            oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            if (!bFlip)
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt1, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt3, vecPt2, vecPt1);
+                            }
                         }
                     }
                 }
             }
 
-            protected void AddInnerMantle(ref Mesh oMesh, bool bFlip = false)
+            protected void AddInnerMantle(ref Mesh oMesh, bool bFlip = false, bool triangulate = true)
             {
                 //iterate across phi and length
                 int iRadiusStep     = 0;
@@ -294,15 +335,29 @@ namespace Leap71
                         Vector3 vecPt2 = vecGetSurfacePoint(fLengthRatio2, fPhiRatio2, fRadiusRatio);
                         Vector3 vecPt3 = vecGetSurfacePoint(fLengthRatio1, fPhiRatio2, fRadiusRatio);
 
-                        if (bFlip == false)
+                        if (triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            if (bFlip == false)
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt1, vecPt2);
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
+                                oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            }
                         }
-                        else
+                        if (!triangulate)
                         {
-                            oMesh.nAddTriangle(vecPt0, vecPt2, vecPt1);
-                            oMesh.nAddTriangle(vecPt0, vecPt3, vecPt2);
+                            if (!bFlip)
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt1, vecPt2, vecPt3);
+                            }
+                            else
+                            {
+                                oMesh.nAddQuad(vecPt0, vecPt3, vecPt2, vecPt1);
+                            }
                         }
                     }
                 }
@@ -312,19 +367,19 @@ namespace Leap71
             //step conversions
             protected float fGetRadiusRatioFromStep(int iRadiusStep)
             {
-                float fRadiusRatio = (1f) / (m_nRadialSteps - 1) * (iRadiusStep);
+                float fRadiusRatio = (1f) / (m_nRadialSteps - 1) * iRadiusStep;
                 return fRadiusRatio;
             }
 
             protected float fGetPhiRatioFromStep(int iPhiStep)
             {
-                float fPhiRatio = (1f) / (m_nPolarSteps - 1) * (iPhiStep);
+                float fPhiRatio = (1f) / (m_nPolarSteps - 1) * iPhiStep;
                 return fPhiRatio;
             }
 
             protected float fGetLengthRatioFromStep(int iLengthStep)
             {
-                float fLengthRatio = (1f) / (m_nLengthSteps - 1) * (iLengthStep);
+                float fLengthRatio = (1f) / (m_nLengthSteps - 1) * iLengthStep;
                 return fLengthRatio;
             }
 
