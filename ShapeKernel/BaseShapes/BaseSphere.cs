@@ -49,6 +49,8 @@ namespace Leap71
             protected SurfaceModulation m_oRadiusModulation;
             protected LocalFrame        m_oFrame;
 
+            protected float m_fRadius;
+
             /// <summary>
             /// Initialises a sphere based on a local frame and 1 dimensions.
             /// The shape has no spine.
@@ -62,6 +64,7 @@ namespace Leap71
                 m_oFrame            = oFrame;
                 m_oRadiusModulation = new SurfaceModulation(fRadius);
                 m_bTransformed      = false;
+                m_fRadius = fRadius;
             }
 
 
@@ -93,7 +96,8 @@ namespace Leap71
             public Mesh mshConstruct()
             {
                 Mesh oMesh          = new Mesh();
-                float fRadiusRatio  = 1f;
+
+                float fRadiusRatio = 1f;
                 for (int iThetaStep = 1; iThetaStep < m_nAzimuthalSteps; iThetaStep++)
                 {
                     float fThetaRatio1 = (1f) / (m_nAzimuthalSteps - 1) * (iThetaStep - 1);

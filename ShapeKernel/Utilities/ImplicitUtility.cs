@@ -71,24 +71,24 @@ namespace Leap71
             }
 		}
 
-        public class ImplicitSphere : IImplicit
-        {
-			protected Vector3	m_vecCentre;
-			protected float		m_fRadius;
+   //     public class ImplicitSphere : IImplicit
+   //     {
+			//protected Vector3	m_vecCentre;
+			//protected float		m_fRadius;
 
-            /// <summary>
-            /// Helper class for an implicit sphere.
-            /// </summary>
-            public ImplicitSphere(Vector3 vecCentre, float fRadius)
-            {
-				m_vecCentre = vecCentre;
-				m_fRadius	= fRadius;
-            }
+   //         /// <summary>
+   //         /// Helper class for an implicit sphere.
+   //         /// </summary>
+   //         public ImplicitSphere(Vector3 vecCentre, float fRadius)
+   //         {
+			//	m_vecCentre = vecCentre;
+			//	m_fRadius	= fRadius;
+   //         }
 
-            public float fSignedDistance(in Vector3 vecPt)
-            {
-                return (vecPt - m_vecCentre).Length() - m_fRadius;
-            }
-        }
+   //         public float fSignedDistance(in Vector3 vecPt)
+   //         {
+   //             return (vecPt - m_vecCentre).Length() - m_fRadius;
+   //         }
+   //     }
     }
 }
